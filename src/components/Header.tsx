@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useThemes } from "../hooks/useThemes";
+import { ButtonTheme } from "./BottonTheme";
 
 export function Header() {
-  const { currentTheme, setCurrentTheme, themes } = useThemes();
+  const { currentTheme, SetIsMenuVisible } = useThemes();
 
   return (
     <View style={currentTheme.header}>
@@ -19,13 +20,10 @@ export function Header() {
       >
         do
       </Text>
-      <TouchableOpacity
-        onPress={() => {
-          setCurrentTheme(themes.blue);
-        }}
-      >
+      <TouchableOpacity onPress={() => SetIsMenuVisible(true)}>
         <Text>Tema</Text>
       </TouchableOpacity>
+      <ButtonTheme />
     </View>
   );
 }

@@ -1,3 +1,4 @@
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import React from "react";
 import { StatusBar } from "react-native";
 import { Home } from "./src/pages/Home";
@@ -12,10 +13,11 @@ export default function App() {
         translucent
         barStyle="light-content"
       />
-
-      <ThemesContextProvider>
-        <Home />
-      </ThemesContextProvider>
+      <SafeAreaProvider>
+        <ThemesContextProvider>
+          <Home />
+        </ThemesContextProvider>
+      </SafeAreaProvider>
     </>
   );
 }
