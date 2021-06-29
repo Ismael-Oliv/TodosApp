@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { View } from "react-native";
+import { useThemes } from "../hooks/useThemes";
 
 import { Header } from "../components/Header";
 import { MyTasksList } from "../components/MyTasksList";
@@ -12,6 +14,7 @@ interface Task {
 
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const { currentTheme } = useThemes();
 
   function handleAddTask(newTaskTitle: string) {
     if (!newTaskTitle) return;
@@ -46,7 +49,7 @@ export function Home() {
   }
 
   return (
-    <>
+    <View style={currentTheme.mode}>
       <Header />
 
       <TodoInput addTask={handleAddTask} />
@@ -56,6 +59,6 @@ export function Home() {
         onPress={handleMarkTaskAsDone}
         onLongPress={handleRemoveTask}
       />
-    </>
+    </View>
   );
 }

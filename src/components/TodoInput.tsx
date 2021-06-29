@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useThemes } from "../hooks/useThemes";
 
 import checkIcon from "../assets/icons/Check.png";
 
@@ -17,6 +18,8 @@ interface TodoInputProps {
 export function TodoInput({ addTask }: TodoInputProps) {
   const [task, setTask] = useState("");
 
+  const { currentTheme } = useThemes();
+
   function handleAddNewTask() {
     addTask(task);
     setTask("");
@@ -25,14 +28,15 @@ export function TodoInput({ addTask }: TodoInputProps) {
   return (
     <View
       style={[
-        styles.inputContainer,
+        currentTheme.inputContainer,
         Platform.OS === "ios"
-          ? styles.inputIOSShadow
-          : styles.inputAndroidShadow,
+          ? currentTheme.inputIOSShadow
+          : currentTheme.inputAndroidShadow,
       ]}
     >
       <TextInput
-        style={styles.input}
+        style={currentTheme.input}
+        placeholderTextColor={currentTheme.inputPlaceHolder}
         placeholder="Adicionar novo todo..."
         returnKeyType="send"
         value={task}
@@ -42,7 +46,7 @@ export function TodoInput({ addTask }: TodoInputProps) {
       <TouchableOpacity
         testID="add-new-task-button"
         activeOpacity={0.7}
-        style={styles.addButton}
+        style={currentTheme.inputAddButton}
         onPress={handleAddNewTask}
       >
         <Image source={checkIcon} />
@@ -64,6 +68,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     backgroundColor: "#F5F4F8",
+
     paddingLeft: 12,
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,

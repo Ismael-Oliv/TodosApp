@@ -7,11 +7,13 @@ import {
   StyleSheet,
   FlatListProps,
 } from "react-native";
+import { useThemes } from "../hooks/useThemes";
 
 function FlatListHeaderComponent() {
+  const { currentTheme } = useThemes();
   return (
     <View>
-      <Text style={styles.header}>Minhas tasks</Text>
+      <Text style={currentTheme.taskHeader}>Minhas tasks</Text>
     </View>
   );
 }
@@ -27,6 +29,8 @@ interface MyTasksListProps {
 }
 
 export function MyTasksList({ tasks, onLongPress, onPress }: MyTasksListProps) {
+  const { currentTheme } = useThemes();
+
   return (
     <FlatList
       data={tasks}
@@ -38,13 +42,23 @@ export function MyTasksList({ tasks, onLongPress, onPress }: MyTasksListProps) {
             activeOpacity={0.7}
             onPress={() => onPress(item.id)}
             onLongPress={() => onLongPress(item.id)}
-            style={item.done ? styles.taskButtonDone : styles.taskButton}
+            style={
+              item.done ? currentTheme.taskButtonDone : currentTheme.taskButton
+            }
           >
             <View
               testID={`marker-${index}`}
-              style={item.done ? styles.taskMarkerDone : styles.taskMarker}
+              style={
+                item.done
+                  ? currentTheme.taskMarkerDone
+                  : currentTheme.taskMarker
+              }
             />
-            <Text style={item.done ? styles.taskTextDone : styles.taskText}>
+            <Text
+              style={
+                item.done ? currentTheme.taskTextDone : currentTheme.taskText
+              }
+            >
               {item.title}
             </Text>
           </TouchableOpacity>
@@ -57,6 +71,7 @@ export function MyTasksList({ tasks, onLongPress, onPress }: MyTasksListProps) {
       style={{
         marginHorizontal: 24,
         marginTop: 32,
+        height: 700,
       }}
     />
   );
